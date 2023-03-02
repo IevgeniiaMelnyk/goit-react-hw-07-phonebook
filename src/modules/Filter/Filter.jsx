@@ -15,19 +15,17 @@ const Filter = ({ text }) => {
   const onBlur = () => dispatch(setFilter(''));
 
   return (
-    <>
-      <Label>
-        {text}
-        <Input
-          type="text"
-          name="filter"
-          placeholder="Name"
-          value={filter}
-          onChange={findByName}
-          onBlur={onBlur}
-        ></Input>
-      </Label>
-    </>
+    <Label>
+      {text}
+      <Input
+        type="text"
+        name="filter"
+        placeholder="Name"
+        value={filter}
+        onChange={findByName}
+        onBlur={onBlur}
+      ></Input>
+    </Label>
   );
 };
 

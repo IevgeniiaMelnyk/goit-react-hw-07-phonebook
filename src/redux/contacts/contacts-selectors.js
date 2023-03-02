@@ -1,4 +1,4 @@
-export const getFilterContacts = ({ contacts, filter }) => {
+export const getFilterContacts = ({ contacts: {contacts}, filter }) => {
   if (!filter) {
     return contacts;
   }
@@ -7,3 +7,6 @@ export const getFilterContacts = ({ contacts, filter }) => {
     contact.name.toLowerCase().includes(normalizedFilter)
   );
 };
+
+export const getIsLoading = ({contacts}) => contacts.loading;
+export const getError = ({contacts}) => contacts.error;

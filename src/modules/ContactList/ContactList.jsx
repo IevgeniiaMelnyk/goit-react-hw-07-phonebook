@@ -1,24 +1,31 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contacts/contacts-slice';
+import {
+  fetchContacts,
+  fetchDeleteContact,
+} from 'redux/contacts/contacts-operations';
 import { getFilterContacts } from 'redux/contacts/contacts-selectors';
 import ContactItem from 'shared/components/ContactItem/ContactItem';
 import { Item, List } from './ContactList.styled';
 
 const ContactList = () => {
-  const contacts = useSelector(getFilterContacts);
   const dispatch = useDispatch();
+  const contacts = useSelector(getFilterContacts);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const onDeleteContact = id => {
-    const action = deleteContact(id);
-    dispatch(action);
+    dispatch(fetchDeleteContact(id));
   };
 
-  const elements = contacts.map(({ id, name, number }) => {
+  const elements = contacts.map(({ id, name, phone }) => {
     return (
       <Item key={id}>
         <ContactItem
           name={name}
-          number={number}
+          number={phone}
           onDeleteContact={onDeleteContact}
           id={id}
         />
@@ -26,7 +33,7 @@ const ContactList = () => {
     );
   });
 
-  return <List>{elements}</List>;
+  return <>{contacts.length > 0 && <List>{elements}</List>};</>;
 };
 
 export default ContactList;
